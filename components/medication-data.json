@@ -1,0 +1,48 @@
+{
+    "medications": [
+        {
+            "name": "Aspirin",
+            "schedule": [
+                {"time": "8:00 AM", "quantity": 1, "unit": "tablet"},
+                {"time": "12:00 PM", "quantity": 1, "unit": "tablet"},
+                {"time": "4:00 PM", "quantity": 1, "unit": "tablet"},
+                {"time": "8:00 PM", "quantity": 1, "unit": "tablet"}
+            ]
+        },
+        {
+            "name": "Ibuprofen",
+            "schedule": [
+                {"time": "8:00 AM", "quantity": 2, "unit": "tablet"},
+                {"time": "12:00 PM", "quantity": 2, "unit": "tablet"},
+                {"time": "4:00 PM", "quantity": 2, "unit": "tablet"},
+                {"time": "8:00 PM", "quantity": 2, "unit": "tablet"}
+            ]
+        },
+        {
+            "name": "Metformin",
+            "schedule": [
+                {"time": "8:00 AM", "quantity": 1, "unit": "tablet"},
+                {"time": "8:00 PM", "quantity": 1, "unit": "tablet"}
+            ]
+        },
+        {
+            "name": "Levothyroxine",
+            "schedule": [
+                {"time": "6:00 AM", "quantity": 1, "unit": "tablet"}
+            ]
+        },
+        {
+            "name": "Lisinopril",
+            "schedule": [
+                {"time": "8:00 AM", "quantity": 1, "unit": "tablet"},
+                {"time": "8:00 PM", "quantity": 1, "unit": "tablet"}
+            ]
+        },
+        {
+            "name": "Simvastatin",
+            "schedule": [
+                {"time": "8:00 PM", "quantity": 1, "unit": "tablet"}
+            ]
+        }
+    ]
+}
