@@ -3,35 +3,37 @@ import medications from './medication-data.json';
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Button, SafeAreaView, ScrollView } from 'react-native';
 
-
-export const ManageMedications = ({ navigation }) => {
-    return (
-        <SafeAreaView style={styles.container}>
-            <ScrollView style={styles.scrollview}>
-                {medications.medications.map(medication => (
-                    <View key={medication.name} style={styles.medication}>
-                        <Text style={styles.medicationName}>{medication.name}</Text>
-                        <View style={styles.medicationSchedule}>
-                            {medication.schedule.map(dose => (
-                                <Text key={dose.time} style={styles.dose}>
-                                    {dose.time}: {dose.quantity} {dose.unit}
-                                </Text>
-                            ))}
+class ManageMedications extends Component {
+    constructor(props) {
+        super(props);
+    }
+    render() {
+        return (
+            <SafeAreaView style={styles.container}>
+                <ScrollView style={styles.scrollview}>
+                    {medications.medications.map(medication => (
+                        <View key={medication.name} style={styles.medication}>
+                            <Text style={styles.medicationName}>{medication.name}</Text>
+                            <View style={styles.medicationSchedule}>
+                                {medication.schedule.map(dose => (
+                                    <Text key={dose.time} style={styles.dose}>
+                                        {dose.time}: {dose.quantity} {dose.unit}
+                                    </Text>
+                                ))}
+                            </View>
+                            <TouchableOpacity style={styles.deleteButton}>
+                                <Text style={styles.deleteButtonText}>Delete</Text>
+                            </TouchableOpacity>
                         </View>
-                        <TouchableOpacity style={styles.deleteButton}>
-                            <Text style={styles.deleteButtonText}>Delete</Text>
-                        </TouchableOpacity>
-                    </View>
-                ))}
-                <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>Add Medication</Text>
-                </TouchableOpacity>
-            </ScrollView>
-        </SafeAreaView>
-    );
+                    ))}
+                    <TouchableOpacity style={styles.button}>
+                        <Text style={styles.buttonText}>Add Medication</Text>
+                    </TouchableOpacity>
+                </ScrollView>
+            </SafeAreaView>
+        );
+    }
 };
-
-
 
 const styles = StyleSheet.create({
     container: {
@@ -39,7 +41,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingHorizontal: 20
+        paddingHorizontal: 10
     },
     scrollview: {
         marginHorizontal: 20,
@@ -81,3 +83,5 @@ const styles = StyleSheet.create({
         textDecorationLine: 'underline'
     }
 });
+
+export default ManageMedications;
