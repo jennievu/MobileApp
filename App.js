@@ -4,6 +4,7 @@ import MainMenu from './components/MainMenu';
 import ManageMedications from './components/ManageMedications';
 import MyData from './components/MyData';
 
+// This is test commit
 const Stack = createNativeStackNavigator();
 export default function App() {
   return (
