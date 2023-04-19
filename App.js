@@ -4,6 +4,7 @@ import MainMenu from './components/MainMenu';
 import ManageMedications from './components/ManageMedications';
 import MyData from './components/MyData';
 import LogScreen from './components/LogScreen';
+import TakePill from './components/TakePill';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
         <Stack.Screen name="Manage Medications" component={ManageMedications}/>
         <Stack.Screen name="My Data" component={MyData}/>
         <Stack.Screen name="LogScreen" component={LogScreen}/>
+        <Stack.Screen name="TakePill" component={TakePill}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
