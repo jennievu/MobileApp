@@ -9,19 +9,33 @@ class MainMenu extends Component {
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>Main Menu</Text>
+
                 <TouchableOpacity
                     style={styles.button}
                     onPress={() => this.props.navigation.navigate('Manage Medications')}
                 >
                     <Text style={styles.buttonText}>Manage Medication</Text>
                 </TouchableOpacity>
+
                 <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('My Data')}>
                     <Text style={styles.buttonText}>My Data</Text>
                 </TouchableOpacity>
+
+                <TouchableOpacity 
+                    style={styles.circleButton}
+                    onPress={() => this.props.navigation.navigate('TakePill')}
+                >
+                    <Text style={styles.circleButtonText}>Take Pill</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('LogScreen')} style={{ position: 'absolute', bottom: 20, right: 20 }}>
+                  <Text style={{ fontSize: 30, color: 'white', backgroundColor: 'blue', padding: 10, borderRadius: 50 }}>+</Text>
+                </TouchableOpacity>
+
             </View>
         );
     }
-};
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -47,6 +61,21 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontWeight: 'bold',
         fontSize: 18
-    }
+    },
+    circleButton: {
+        backgroundColor: '#0080ff',
+        width: 250,
+        height: 250,
+        borderRadius: 150,
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        bottom: 150,
+    },
+    circleButtonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+        fontSize: 24
+    },
 });
 export default MainMenu;
