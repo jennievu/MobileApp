@@ -1,9 +1,6 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, FlatList, TouchableOpacity, Modal, Button, AsyncStorage, Animated } from 'react-native'; // import react-native tools
 import { Swipeable } from 'react-native-gesture-handler';
-
-
 
 const NotesScreen = () => {
   const [notes, setNotes] = useState([]);
@@ -66,7 +63,7 @@ const NotesScreen = () => {
     const renderRightActions = (progress, dragX) => {
     const trans = dragX.interpolate({
       inputRange: [0, 50, 100],
-      outputRange: [0, 10, 100],
+      outputRange: [0, 0, 100],
     });
       return (
       <TouchableOpacity
