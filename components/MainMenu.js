@@ -1,10 +1,40 @@
 import { Component } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, AsyncStorage, Alert } from "react-native";
 
 class MainMenu extends Component {
     constructor(props) {
         super(props);
     }
+
+    componentDidMount() {
+      this.checkLastLaunchTime();
+    }
+    
+    async checkLastLaunchTime() {
+      //await setLastLaunchTime(); // Here to test 7 day check.
+      const lastLaunchTime = await AsyncStorage.getItem("lastLaunchTime");
+      const currentTime = new Date().getTime();
+      const sevenDaysInMs = 7 * 24 * 60 * 60 * 1000;
+
+      if (!lastLaunchTime || currentTime - lastLaunchTime > sevenDaysInMs) {
+        Alert.alert(
+          "Reminder",
+          "It's been 7 days since you last logged a note. Please take a moment to write down how you've been feeling.",
+          [
+            {
+              text: "OK",
+              onPress: () => {
+                // navigate to the LogScreen
+                this.props.navigation.navigate("LogScreen");
+              },
+            },
+          ]
+        );
+      }
+
+      await AsyncStorage.setItem("lastLaunchTime", currentTime.toString());
+    }
+    
     render() {
         return (
             <View style={styles.container}>
@@ -35,6 +65,11 @@ class MainMenu extends Component {
             </View>
         );
     }
+}
+async function setLastLaunchTime() { // Test function to check if time feature works.
+  const eightDaysInMs = 8 * 24 * 60 * 60 * 1000;
+  const lastLaunchTime = new Date().getTime() - eightDaysInMs;
+  await AsyncStorage.setItem("lastLaunchTime", lastLaunchTime.toString());
 }
 
 const styles = StyleSheet.create({
