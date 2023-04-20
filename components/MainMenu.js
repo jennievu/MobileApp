@@ -1,5 +1,6 @@
 import { Component } from "react";
-import { StyleSheet, Text, TouchableOpacity, View, AsyncStorage, Alert } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View, Alert } from "react-native";
+import { AsyncStorage } from '@react-native-async-storage/async-storage';
 
 class MainMenu extends Component {
     constructor(props) {
