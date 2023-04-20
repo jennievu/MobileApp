@@ -1,10 +1,17 @@
-import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, FlatList, Dimensions} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, TouchableOpacity, StyleSheet, FlatList, Dimensions, Alert} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const TakePill = () => {
   const [markedDates, setMarkedDates] = useState({});
   const [selectedHours, setSelectedHours] = useState([]);
+  const [availableHours, setAvailableHours] = useState([]);
+
+  useEffect(() => {
+    // Fetch data from database and create an array of all available hours
+    const availableHoursArray = ['10:00', '14:00', '18:00']; // replace with data from database
+    setAvailableHours(availableHoursArray);
+  }, []);
 
   const onTakePill = (hour) => {
     const updatedHours = [...selectedHours, hour];
@@ -12,12 +19,16 @@ const TakePill = () => {
   };
 
   const renderHour = ({item}) => {
+    const isAvailable = availableHours.includes(item);
+    const buttonStyle = isAvailable ? styles.hourButton : styles.disabledHourButton;
+    const textStyle = isAvailable ? styles.hourText : styles.disabledHourText;
     return (
       <TouchableOpacity
-        style={styles.hourButton}
+        style={buttonStyle}
         onPress={() => onTakePill(item)}
+        disabled={!isAvailable}
       >
-        <Text style={styles.hourText}>{item}</Text>
+        <Text style={textStyle}>{item}</Text>
       </TouchableOpacity>
     );
   };
@@ -44,7 +55,9 @@ const TakePill = () => {
         style={[styles.takePillButton, {opacity: selectedHours.length > 0 ? 1 : 0.5}]}
         disabled={selectedHours.length === 0}
         onPress={() => {
-          // Logic for taking the pill
+          // Show popup when pill is taken
+          Alert.alert('Pill Taken!');
+          // Add logic to update the database or perform any other actions
         }}
       >
         <Icon name="pill" size={30} color="white" />
@@ -77,6 +90,18 @@ const styles = StyleSheet.create({
   },
   hourText: {
     color: 'white',
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
+  disabledHourButton: {
+    backgroundColor: '#9E9E9E',
+    padding: 10,
+    marginVertical: 5,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  disabledHourText: {
+    color: '#616161',
     fontWeight: 'bold',
     fontSize: 18,
   },
