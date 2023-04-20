@@ -1,0 +1,319 @@
+{
+    "medications":  [
+        {
+            "name": "Abilify"
+        },
+        {
+            "name": "Acetaminophen"
+        },
+        {
+            "name": "Adderall"
+        },
+        {
+            "name": "Advair"
+        },
+        {
+            "name": "Advil"
+        },
+        {
+            "name": "Aleve"
+        },
+        {
+            "name": "Albuterol"
+        },
+        {
+            "name": "Alka-Seltzer"
+        },
+        {
+            "name": "Amlodipine"
+        },
+        {
+            "name": "Amoxicillin"
+        },
+        {
+            "name": "Atenolol"
+        },
+        {
+            "name": "Ativan"
+        },
+        {
+            "name": "Atorvastatin"
+        },
+        {
+            "name": "Azithromycin"
+        },
+        {
+            "name": "Benadryl"
+        },
+        {
+            "name": "Cephalexin"
+        },
+        {
+            "name": "Cialis"
+        },
+        {
+            "name": "Cipro"
+        },
+        {
+            "name": "Ciprofloxacin"
+        },
+        {
+            "name": "Citalopram"
+        },
+        {
+            "name": "Claritin"
+        },
+        {
+            "name": "Clindamycin"
+        },
+        {
+            "name": "Clopidogrel"
+        },
+        {
+            "name": "Colace"
+        },
+        {
+            "name": "Culturelle"
+        },
+        {
+            "name": "Cymbalta"
+        },
+        {
+            "name": "Diazepam"
+        },
+        {
+            "name": "Divalproex"
+        },
+        {
+            "name": "Dramamine"
+        },
+        {
+            "name": "Dulcolax"
+        },
+        {
+            "name": "Duloxetine"
+        },
+        {
+            "name": "Effexor"
+        },
+        {
+            "name": "Escitalopram"
+        },
+        {
+            "name": "Ezetimibe"
+        },
+        {
+            "name": "Excedrin"
+        },
+        {
+            "name": "Fentanyl"
+        },
+        {
+            "name": "FiberCon"
+        },
+        {
+            "name": "Flomax"
+        },
+        {
+            "name": "Fluoxetine"
+        },
+        {
+            "name": "Gabapentin"
+        },
+        {
+            "name": "Gas-X"
+        },
+        {
+            "name": "Hydrochlorothiazide"
+        },
+        {
+            "name": "Ibuprofen"
+        },
+        {
+            "name": "Imodium"
+        },
+        {
+            "name": "Lamictal"
+        },
+        {
+            "name": "Lamotrigine"
+        },
+        {
+            "name": "Levothyroxine"
+        },
+        {
+            "name": "Lexapro"
+        },
+        {
+            "name": "Lipitor"
+        },
+        {
+            "name": "Lisinopril"
+        },
+        {
+            "name": "Losartan"
+        },
+        {
+            "name": "Lyrica"
+        },
+        {
+            "name": "Meloxicam"
+        },
+        {
+            "name": "Metamucil"
+        },
+        {
+            "name": "Metformin"
+        },
+        {
+            "name": "Metoprolol"
+        },
+        {
+            "name": "MiraLAX"
+        },
+        {
+            "name": "Monistat"
+        },
+        {
+            "name": "Motrin"
+        },
+        {
+            "name": "Naproxen"
+        },
+        {
+            "name": "Nexium"
+        },
+        {
+            "name": "Nicorette"
+        },
+        {
+            "name": "Norco"
+        },
+        {
+            "name": "NyQuil"
+        },
+        {
+            "name": "Olanzapine"
+        },
+        {
+            "name": "Omeprazole"
+        },
+        {
+            "name": "Oxycodone"
+        },
+        {
+            "name": "Pantoprazole"
+        },
+        {
+            "name": "Paroxetine"
+        },
+        {
+            "name": "Pepcid"
+        },
+        {
+            "name": "Plavix"
+        },
+        {
+            "name": "Prednisone"
+        },
+        {
+            "name": "Preparation H"
+        },
+        {
+            "name": "ProAir"
+        },
+        {
+            "name": "Prozac"
+        },
+        {
+            "name": "Quetiapine"
+        },
+        {
+            "name": "Robitussin"
+        },
+        {
+            "name": "Rolaids"
+        },
+        {
+            "name": "Rosuvastatin"
+        },
+        {
+            "name": "Sarna"
+        },
+        {
+            "name": "Senokot"
+        },
+        {
+            "name": "Sertraline"
+        },
+        {
+            "name": "Similasan"
+        },
+        {
+            "name": "Simply Sleep"
+        },
+        {
+            "name": "Singulair"
+        },
+        {
+            "name": "Sominex"
+        },
+        {
+            "name": "Sudafed"
+        },
+        {
+            "name": "Synthroid"
+        },
+        {
+            "name": "Tamsulosin"
+        },
+        {
+            "name": "Trazodone"
+        },
+        {
+            "name": "Tramadol"
+        },
+        {
+            "name": "TUMS"
+        },
+        {
+            "name": "Tylenol"
+        },
+        {
+            "name": "Unisom"
+        },
+        {
+            "name": "Venlafaxine"
+        },
+        {
+            "name": "Ventolin"
+        },
+        {
+            "name": "Visine"
+        },
+        {
+            "name": "Vicks"
+        },
+        {
+            "name": "Warfarin"
+        },
+        {
+            "name": "Xanax"
+        },
+        {
+            "name": "Zantac"
+        },
+        {
+            "name": "Zicam"
+        },
+        {
+            "name": "Zoloft"
+        },
+        {
+            "name": "Zolpidem"
+        },
+        {
+            "name": "Zyrtec"
+        }
+    ]
+}

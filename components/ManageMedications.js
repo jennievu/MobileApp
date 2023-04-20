@@ -26,7 +26,7 @@ class ManageMedications extends Component {
                             </TouchableOpacity>
                         </View>
                     ))}
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Add Medication')}>
                         <Text style={styles.buttonText}>Add Medication</Text>
                     </TouchableOpacity>
                 </ScrollView>
@@ -64,16 +64,16 @@ const styles = StyleSheet.create({
         marginBottom: 2
     },
     button: {
-        backgroundColor: '#007AFF',
-        padding: 10,
-        borderRadius: 5,
-        marginTop: 10
+        backgroundColor: '#0080ff',
+        paddingVertical: 15,
+        paddingHorizontal: 50,
+        borderRadius: 25,
+        marginBottom: 20
     },
     buttonText: {
         color: '#fff',
-        fontSize: 16,
         fontWeight: 'bold',
-        textAlign: 'center'
+        fontSize: 18
     },
     deleteButton: {
         backgroundColor: '#00000000'

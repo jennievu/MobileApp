@@ -9,14 +9,17 @@ class MainMenu extends Component {
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>Main Menu</Text>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => this.props.navigation.navigate('Manage Medications')}
-                >
+                <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Manage Medications')}>
                     <Text style={styles.buttonText}>Manage Medication</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('My Data')}>
                     <Text style={styles.buttonText}>My Data</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Add Medication')}>
+                    <Text style={styles.buttonText}>Add Medication</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Mood Log')}>
+                    <Text style={styles.buttonText}>Mood Log</Text>
                 </TouchableOpacity>
             </View>
         );
