@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, FlatList, TouchableOpacity, Modal, Button, AsyncStorage, Animated } from 'react-native'; // import react-native tools
+import { View, Text, TextInput, FlatList, TouchableOpacity, Modal, Button, AsyncStorage, Animated, Alert } from 'react-native'; // import react-native tools
 import { Swipeable } from 'react-native-gesture-handler';
 
 const NotesScreen = () => {
@@ -8,6 +8,8 @@ const NotesScreen = () => {
 
   const [modalVisible, setModalVisible] = useState(false);
   const [newNote, setNewNote] = useState(''); // These look the exact same... why?
+
+  const [selectedEmoji, setSelectedEmoji] = useState(null); // add new emoji state variable
 
   const loadNotes = async () => {
     try {
@@ -21,6 +23,12 @@ const NotesScreen = () => {
   };
 
   const handleSaveNote = async () => {
+
+    if (!selectedEmoji) {
+      Alert.alert('Please select an emoji option.');
+      return;
+    }
+    
     let summary = newNote.slice(0, 40);
     if (newNote.length >= 40){
       summary += '...';
@@ -31,6 +39,7 @@ const NotesScreen = () => {
       content: newNote,
       summary: summary,
       date: date,
+      emoji: selectedEmoji,
     };
 
     let savedNotes = await AsyncStorage.getItem('notes');
@@ -48,12 +57,28 @@ const NotesScreen = () => {
     setNewNote(''); // whenever a new note is created set blank
     setNoteIndex(null); // set note index passing null (no clue?)
     setNotes(notesArray);
+    setSelectedEmoji(null);
   };
 
   const handleDeleteNote = (index) => {
     const newNotes = [...notes];
     newNotes.splice(index, 1);
     setNotes(newNotes);
+  };
+
+  const handleSelectEmoji = () => {
+    Alert.alert(
+      'How are you feeling?',
+      'Select an option',
+      [
+        { text: '😄', onPress: () => setSelectedEmoji('😄') },
+        { text: '🙂', onPress: () => setSelectedEmoji('🙂') },
+        { text: '😐', onPress: () => setSelectedEmoji('😐') },
+        { text: '😢', onPress: () => setSelectedEmoji('😢') },
+        { text: '😡', onPress: () => setSelectedEmoji('😡') },
+      ],
+      { cancelable: true }
+    );
   };
 
   const renderItem = ({ item, index }) => {
@@ -88,16 +113,18 @@ const NotesScreen = () => {
       rightThreshold={40}
       containerStyle={{ backgroundColor: '#fff', borderBottomWidth: 1, borderBottomColor: '#ccc' }}
     >
+
       <TouchableOpacity onPress={() => {
         setNewNote(item.content);
         setNoteIndex(index);
         setModalVisible(true);
       }}>
         <View style={{ padding: 10, borderBottomWidth: 1 }}>
-          <Text style={{ fontSize: 18 }}>{item.summary}</Text>
+          <Text style={{ fontSize: 18 }}>{item.emoji}{item.summary}</Text>
           <Text style={{ fontSize: 12, color: 'gray' }}>{item.date}</Text>
         </View>
       </TouchableOpacity>
+
     </Swipeable>
   );
 };
@@ -119,13 +146,18 @@ const NotesScreen = () => {
 
   return (
     <View style={{flex: 1, paddingTop: 10, backgroundColor: '#fff'}}>
+      {notes.length === 0 ? (
+        <View style={{ alignItems: 'center', marginTop: 50 }}>
+          <Text style={{ fontStyle: 'italic', fontSize: 24, textAlign: 'center' }}>No notes yet, {'\n'}add one by pressing the "+"</Text>
+        </View>
+      ) : (
       <FlatList
         data={notes}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
         extraData={notes}
       />
-
+      )}
       <Modal 
         animationType="slide"
         transparent={false}
@@ -143,10 +175,14 @@ const NotesScreen = () => {
             value={newNote}
             style={{ fontSize: 24, padding: 20 }}
           />
+          <Button title="Select emoji" onPress={handleSelectEmoji} />
           <Button title="Save" onPress={handleSaveNote} />
           <Button
             title="Cancel"
-            onPress={() => setModalVisible(false)}
+            onPress={() => {
+            setModalVisible(false);
+            setSelectedEmoji(null);
+            }}
             color="red"
           />
           </View>
