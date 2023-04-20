@@ -5,7 +5,6 @@ import ManageMedications from './components/ManageMedications';
 import MyData from './components/MyData';
 import AddMedication from './components/AddMedication';
 import { SearchBar } from 'react-native-screens';
-import MoodLog from './components/MoodLog';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -17,7 +16,6 @@ export default function App() {
         <Stack.Screen name="My Data" component={MyData}/>
         <Stack.Screen name="Add Medication" component={AddMedication}/>
         <Stack.Screen name="Search Bar" component={SearchBar}/>
-        <Stack.Screen name="Mood Log" component={MoodLog}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
