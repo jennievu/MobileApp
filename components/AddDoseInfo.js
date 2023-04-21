@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import { Picker } from '@react-native-picker/picker';
 
 const AddDoseInfo = () => {
@@ -10,7 +10,10 @@ const AddDoseInfo = () => {
     const route = useRoute();
     const itemName = route.params.itemName;
 
+    const navigation = useNavigation();
+
     const handleSave = () => {
+        navigation.navigate('Add Frequency', { itemName: itemName, unitName: unit, quantityValue: quantity });
         // TODO: handle saving the dose information
     };
 

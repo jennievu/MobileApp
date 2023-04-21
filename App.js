@@ -8,6 +8,7 @@ import TakePill from './components/TakePill';
 import AddMedication from './components/AddMedication';
 import AddDoseInfo from './components/AddDoseInfo';
 import SearchBar from './components/SearchBar';
+import AddFrequency from './components/AddFrequency';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -21,6 +22,7 @@ export default function App() {
         <Stack.Screen name="TakePill" component={TakePill}/>
         <Stack.Screen name="Add Medication" component={AddMedication} />
         <Stack.Screen name="Add Dose Info" component={AddDoseInfo} />
+        <Stack.Screen name="Add Frequency" component={AddFrequency} />
         <Stack.Screen name="Search Bar" component={SearchBar} />
       </Stack.Navigator>
     </NavigationContainer>
