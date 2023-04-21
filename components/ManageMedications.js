@@ -1,4 +1,3 @@
-
 import medications from './medication-data.json';
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Button, SafeAreaView, ScrollView } from 'react-native';
@@ -33,7 +32,7 @@ class ManageMedications extends Component {
             </SafeAreaView>
         );
     }
-};
+}
 
 const styles = StyleSheet.create({
     container: {
