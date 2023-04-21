@@ -52,6 +52,10 @@ class MainMenu extends Component {
                     <Text style={styles.buttonText}>My Data</Text>
                 </TouchableOpacity>
 
+                <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Sign Up')}>
+                    <Text style={styles.buttonText}>Sign Up (placeholder)</Text>
+                </TouchableOpacity>
+
                 <TouchableOpacity 
                     style={styles.circleButton}
                     onPress={() => this.props.navigation.navigate('TakePill')}
