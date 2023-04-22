@@ -134,13 +134,14 @@ const styles = StyleSheet.create({
         paddingHorizontal: 50,
         borderRadius: 25,
         marginBottom: 20,
-        alignItems: 'center',
-        justifyContent: 'center'
+        alignSelf: 'center',
     },
     buttonText: {
         color: '#fff',
         fontWeight: 'bold',
-        fontSize: 18
+        fontSize: 18,
+        alignSelf: 'center',
+        textAlign: 'center',
     },
 });
 
