@@ -8,27 +8,56 @@ const TakePill = () => {
   const [availableHours, setAvailableHours] = useState([]);
 
   useEffect(() => {
-    // Fetch data from database and create an array of all available hours
-    const availableHoursArray = ['10:00', '14:00', '18:00']; // replace with data from database
-    setAvailableHours(availableHoursArray);
+    // Initialize all hours as available
+    const allHoursArray = Array.from(Array(24).keys()).map((h) => `${h}:00`);
+    setAvailableHours(allHoursArray);
   }, []);
 
   const onTakePill = (hour) => {
-    const updatedHours = [...selectedHours, hour];
-    setSelectedHours(updatedHours);
+    // Remove the selected hour from available hours and add it to selected hours
+    const availableHoursCopy = [...availableHours];
+    const index = availableHoursCopy.indexOf(hour);
+    if (index > -1) {
+      availableHoursCopy.splice(index, 1);
+      setSelectedHours([...selectedHours, hour]);
+      setAvailableHours(availableHoursCopy);
+    }
+  };
+
+  const onUnlog = (hour) => {
+    // Remove the hour from selected hours and add it back to available hours
+    const selectedHoursCopy = [...selectedHours];
+    const index = selectedHoursCopy.indexOf(hour);
+    if (index > -1) {
+      selectedHoursCopy.splice(index, 1);
+      setSelectedHours(selectedHoursCopy);
+      setAvailableHours([...availableHours, hour]);
+    }
   };
 
   const renderHour = ({item}) => {
     const isAvailable = availableHours.includes(item);
     const buttonStyle = isAvailable ? styles.hourButton : styles.disabledHourButton;
     const textStyle = isAvailable ? styles.hourText : styles.disabledHourText;
+    const isTaken = selectedHours.includes(item);
+    const takenButtonStyle = isTaken ? styles.takenHourButton : null;
+    const takenTextStyle = isTaken ? styles.takenHourText : null;
+    const onPressAction = isTaken ? () => onUnlog(item) : () => onTakePill(item);
     return (
       <TouchableOpacity
-        style={buttonStyle}
-        onPress={() => onTakePill(item)}
+        style={[buttonStyle, takenButtonStyle]}
+        onPress={onPressAction}
         disabled={!isAvailable}
       >
-        <Text style={textStyle}>{item}</Text>
+        <Text style={[textStyle, takenTextStyle]}>{item}</Text>
+        {isTaken && (
+          <TouchableOpacity
+            style={styles.unlogButton}
+            onPress={() => onUnlog(item)}
+          >
+            <Text style={styles.unlogButtonText}>Unlog</Text>
+          </TouchableOpacity>
+        )}
       </TouchableOpacity>
     );
   };
@@ -50,9 +79,9 @@ const TakePill = () => {
           keyExtractor={(item) => item}
           ListEmptyComponent={renderEmptyList}
         />
-    </View>
+      </View>
       <TouchableOpacity
-        style={[styles.takePillButton, {opacity: selectedHours.length > 0 ? 1 : 0.5}]}
+        style={[styles.takePillButton, { opacity: selectedHours.length > 0 ? 1 : 0.5 }]}
         disabled={selectedHours.length === 0}
         onPress={() => {
           // Show popup when pill is taken
@@ -66,6 +95,8 @@ const TakePill = () => {
     </View>
   );
 };
+
+
 
 const {height} = Dimensions.get('window');
 const calendarContainerHeight = height * 0.5;
@@ -115,6 +146,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   takePillButton: {
+    backgroundColor: '#4CAF50',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 50,
+    width: 100,
+    height: 100,
+    marginTop: 30,
+  },
+  unlogButton: {
     backgroundColor: '#4CAF50',
     justifyContent: 'center',
     alignItems: 'center',

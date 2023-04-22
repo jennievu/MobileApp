@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, FlatList, TouchableOpacity, Modal, Button, Animated, Alert } from 'react-native'; // import react-native tools
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AsyncStorage } from '@react-native-async-storage/async-storage';
 import { Swipeable } from 'react-native-gesture-handler';
 
 const NotesScreen = () => {

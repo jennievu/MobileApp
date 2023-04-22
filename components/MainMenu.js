@@ -1,26 +1,20 @@
 import { Component } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Alert } from "react-native";
-import AsyncStorage from '@react-native-async-storage/async-storage'
+import { AsyncStorage } from '@react-native-async-storage/async-storage';
 
 class MainMenu extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            isLoggedIn: false
-        }
     }
 
     componentDidMount() {
-      console.log("componentDidMount called");
       this.checkLastLaunchTime();
     }
     
     async checkLastLaunchTime() {
       //await setLastLaunchTime(); // Here to test 7 day check.
       const lastLaunchTime = await AsyncStorage.getItem("lastLaunchTime");
-      console.log("lastLaunchTime", lastLaunchTime); // Add this line
       const currentTime = new Date().getTime();
-      console.log("currentTime", currentTime); // Add this line
       const sevenDaysInMs = 7 * 24 * 60 * 60 * 1000;
 
       if (!lastLaunchTime || currentTime - lastLaunchTime > sevenDaysInMs) {
@@ -41,24 +35,11 @@ class MainMenu extends Component {
 
       await AsyncStorage.setItem("lastLaunchTime", currentTime.toString());
     }
-
-    onLoginSuccess = () => {
-        this.setState({ isLoggedIn: true });
-    }
     
     render() {
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>Main Menu</Text>
-        
-                {!this.state.isLoggedIn &&
-                    <TouchableOpacity
-                        style={styles.loginButton}
-                        onPress={() => this.props.navigation.navigate('Login', { onLoginSuccess: this.onLoginSuccess })}
-                    >
-                        <Text style={styles.loginButtonText}>Login</Text>
-                    </TouchableOpacity>
-                }
 
                 <TouchableOpacity
                     style={styles.button}
@@ -78,7 +59,7 @@ class MainMenu extends Component {
                     <Text style={styles.circleButtonText}>Take Pill</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('LogScreen')} style={{ position: 'absolute', bottom: 40, right: 25 }}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('LogScreen')} style={{ position: 'absolute', bottom: 20, right: 20 }}>
                   <Text style={{ fontSize: 30, color: 'white', backgroundColor: 'blue', padding: 10, borderRadius: 50 }}>+</Text>
                 </TouchableOpacity>
 
@@ -132,20 +113,5 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 24
     },
-    loginButton: {
-        backgroundColor: '#0080ff',
-        paddingVertical: 15,
-        paddingHorizontal: 50,
-        borderRadius: 25,
-        marginBottom: 20,
-        position: 'absolute',
-        bottom: 20,
-        left: 20
-    },
-    loginButtonText: {
-        color: '#fff',
-        fontWeight: 'bold',
-        fontSize: 18
-    }
 });
 export default MainMenu;
