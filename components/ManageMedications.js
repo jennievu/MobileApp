@@ -67,12 +67,15 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         paddingHorizontal: 50,
         borderRadius: 25,
-        marginBottom: 20
+        marginBottom: 20,
+        alignSelf: 'center',
     },
     buttonText: {
         color: '#fff',
         fontWeight: 'bold',
-        fontSize: 18
+        fontSize: 18,
+        alignSelf: 'center',
+        textAlign: 'center',
     },
     deleteButton: {
         backgroundColor: '#00000000'

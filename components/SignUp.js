@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 // Import the functions you need from the SDKs you need
@@ -34,9 +35,19 @@ const SignUp = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
+    const route = useRoute();
+    const email = route.params.email;
+    
+    const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
+
     const handleSignUp = async () => {
+        if (!dateRegex.test(dateOfBirth)) {
+            Alert.alert('Invalid date format');
+            return;
+          }
+        
         if (password !== confirmPassword) {
-            console.log('Passwords do not match');
+            Alert.alert('Passwords do not match');
             return;
         }
 
@@ -44,6 +55,7 @@ const SignUp = () => {
             const db = getFirestore();
             const userRef = collection(db, 'users');
             const docData = {
+                email: email,
                 first_name: firstName,
                 last_name: lastName,
                 date_of_birth: dateOfBirth,
@@ -69,9 +81,13 @@ const SignUp = () => {
                 onChangeText={(text) => setLastName(text)}
             />
             <Text style={styles.label}>Date of Birth:</Text>
-            <TextInput style={styles.input}
+            <TextInput
+                style={styles.input}
                 value={dateOfBirth}
                 onChangeText={(text) => setDateOfBirth(text)}
+                placeholder="MM/DD/YYYY"
+                keyboardType="numeric"
+                maxLength={10}
             />
             <Text style={styles.label}>Password:</Text>
             <TextInput style={styles.input}

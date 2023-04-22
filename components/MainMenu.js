@@ -52,18 +52,18 @@ class MainMenu extends Component {
                     <Text style={styles.buttonText}>My Data</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Sign Up')}>
-                    <Text style={styles.buttonText}>Sign Up (placeholder)</Text>
+                <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Start')}>
+                    <Text style={styles.buttonText}>Start (placeholder)</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity 
                     style={styles.circleButton}
-                    onPress={() => this.props.navigation.navigate('TakePill')}
+                    onPress={() => this.props.navigation.navigate('Take Pill')}
                 >
                     <Text style={styles.circleButtonText}>Take Pill</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('LogScreen')} style={{ position: 'absolute', bottom: 20, right: 20 }}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Log Screen')} style={{ position: 'absolute', bottom: 20, right: 20 }}>
                   <Text style={{ fontSize: 30, color: 'white', backgroundColor: 'blue', padding: 10, borderRadius: 50 }}>+</Text>
                 </TouchableOpacity>
 
