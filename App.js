@@ -1,5 +1,7 @@
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import MainMenu from './components/MainMenu';
 import ManageMedications from './components/ManageMedications';
 import MyData from './components/MyData';
@@ -15,8 +17,42 @@ import Start from './components/Start';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
+
+  useEffect(() => {
+    //resetAppState();
+    checkFirstLaunch();
+  }, []);
+
+  const checkFirstLaunch = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@firstLaunch');
+      if (value === null) {
+        // App is being launched for the first time, navigate to Start screen
+        await AsyncStorage.setItem('@firstLaunch', 'true');
+        navigateToStart();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const navigateToStart = () => {
+    // navigate to Start screen
+    navigationRef.current?.navigate('Start');
+  };
+
+  const navigationRef = React.useRef(null);
+
+  const resetAppState = async () => {
+    try {
+      await AsyncStorage.removeItem('@firstLaunch');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <Stack.Navigator>
         <Stack.Screen name="Main Menu" component={MainMenu} options={{title: 'Welcome'}}/>
         <Stack.Screen name="Login" component={Login}/>
