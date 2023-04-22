@@ -8,7 +8,7 @@ const Login = ({ navigation, route, onLoginSuccess }) => {
   const handleLogin = () => {
     // perform login action here, e.g. call API
     console.log(`Logging in with email: ${email}, password: ${password}`);
-    navigation.navigate('MainMenu'); // navigate to MainMenu screen after successful login
+    navigation.navigate('Main Menu'); // navigate to MainMenu screen after successful login
     route.params.onLoginSuccess();
   };
 

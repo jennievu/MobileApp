@@ -5,6 +5,7 @@ import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
@@ -25,6 +26,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 const SignUp = () => {
     const [firstName, setFirstName] = useState('');
@@ -32,6 +34,8 @@ const SignUp = () => {
     const [dateOfBirth, setDateOfBirth] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const navigation = useNavigation();
+
 
     const route = useRoute();
     const email = route.params.email;
@@ -52,7 +56,7 @@ const SignUp = () => {
             Alert.alert('Invalid date');
             return;
         }
-
+        
         if (password !== confirmPassword) {
             Alert.alert('Passwords do not match');
             return;
@@ -70,11 +74,11 @@ const SignUp = () => {
             };
             const docRef = await addDoc(userRef, docData);
             console.log('Document written with ID:', docRef.id);
+            navigation.navigate('Main Menu');
         } catch (error) {
             console.log('Error adding document:', error);
         }
     };
-
 
     const handleDateInput = (text) => {
         // Remove all non-digit characters

@@ -71,10 +71,6 @@ class MainMenu extends Component {
                     <Text style={styles.buttonText}>My Data</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.button} onPress={() => this.props.navigation.navigate('Start')}>
-                    <Text style={styles.buttonText}>Start (placeholder)</Text>
-                </TouchableOpacity>
-
                 <TouchableOpacity 
                     style={styles.circleButton}
                     onPress={() => this.props.navigation.navigate('Take Pill')}
