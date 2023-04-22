@@ -5,7 +5,6 @@ import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 import { getFirestore, collection, addDoc } from 'firebase/firestore';
@@ -26,7 +25,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 
 const SignUp = () => {
     const [firstName, setFirstName] = useState('');
@@ -37,15 +35,24 @@ const SignUp = () => {
 
     const route = useRoute();
     const email = route.params.email;
-    
-    const dateRegex = /^\d{2}\/\d{2}\/\d{4}$/;
+
+    const dateRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|2[0-8])\/(19|20)\d{2}$|^(0[13-9]|1[0-2])\/(29|30)\/(19|20)\d{2}$/;
 
     const handleSignUp = async () => {
         if (!dateRegex.test(dateOfBirth)) {
-            Alert.alert('Invalid date format');
+            Alert.alert('Invalid date');
             return;
-          }
-        
+        }
+
+        const [month, day, year] = dateOfBirth.split('/');
+        const dateObject = new Date(year, month - 1, day);
+        const currentDate = new Date();
+
+        if (dateObject.getTime() !== dateObject.getTime() || dateObject > currentDate) {
+            Alert.alert('Invalid date');
+            return;
+        }
+
         if (password !== confirmPassword) {
             Alert.alert('Passwords do not match');
             return;
@@ -68,6 +75,22 @@ const SignUp = () => {
         }
     };
 
+
+    const handleDateInput = (text) => {
+        // Remove all non-digit characters
+        text = text.replace(/\D/g, '');
+
+        // Add slashes after month and day if they are missing
+        if (text.length > 2 && text.charAt(2) !== '/') {
+            text = text.substr(0, 2) + '/' + text.substr(2);
+        }
+        if (text.length > 5 && text.charAt(5) !== '/') {
+            text = text.substr(0, 5) + '/' + text.substr(5);
+        }
+
+        setDateOfBirth(text);
+    };
+
     return (
         <View style={styles.container}>
             <Text style={styles.label}>First Name:</Text>
@@ -84,7 +107,7 @@ const SignUp = () => {
             <TextInput
                 style={styles.input}
                 value={dateOfBirth}
-                onChangeText={(text) => setDateOfBirth(text)}
+                onChangeText={handleDateInput}
                 placeholder="MM/DD/YYYY"
                 keyboardType="numeric"
                 maxLength={10}
