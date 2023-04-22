@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 
-const Login = ({ navigation }) => {
+const Login = ({ navigation, route, onLoginSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -9,6 +9,7 @@ const Login = ({ navigation }) => {
     // perform login action here, e.g. call API
     console.log(`Logging in with email: ${email}, password: ${password}`);
     navigation.navigate('MainMenu'); // navigate to MainMenu screen after successful login
+    route.params.onLoginSuccess();
   };
 
   return (
