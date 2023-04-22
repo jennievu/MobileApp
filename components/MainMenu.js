@@ -40,6 +40,13 @@ class MainMenu extends Component {
         return (
             <View style={styles.container}>
                 <Text style={styles.title}>Main Menu</Text>
+        
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => this.props.navigation.navigate('Login')}
+                >
+                    <Text style={styles.buttonText}>Login</Text>
+                </TouchableOpacity>
 
                 <TouchableOpacity
                     style={styles.button}
