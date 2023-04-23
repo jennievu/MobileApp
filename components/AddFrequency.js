@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { Picker } from '@react-native-picker/picker';
-import Checkbox from 'react-native-check-box';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import MultiSelect from 'react-native-multiple-select';
 
 const AddFrequency = () => {
@@ -125,10 +125,11 @@ const AddFrequency = () => {
                     <Text style={styles.checkboxLabel}>Would you like to receive push notifications?</Text>
                 </View>
                 <View style={styles.checkboxBoxContainer}>
-                    <Checkbox
+                    <BouncyCheckbox
                         isChecked={pushNotification}
-                        onClick={() => setPushNotification(!pushNotification)}
-                        checkBoxColor="#0080ff"
+                        onPress={() => setPushNotification(!pushNotification)}
+                        fillColor="#0080ff"
+                        bounceEffect={0.7}
                     />
                 </View>
             </View>

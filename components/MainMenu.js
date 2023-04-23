@@ -6,7 +6,8 @@ class MainMenu extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoggedIn: false
+            isLoggedIn: false,
+            lastPillTakenTime: null
         }
     }
 
@@ -18,9 +19,9 @@ class MainMenu extends Component {
     async checkLastLaunchTime() {
       //await setLastLaunchTime(); // Here to test 7 day check.
       const lastLaunchTime = await AsyncStorage.getItem("lastLaunchTime");
-      console.log("lastLaunchTime", lastLaunchTime); // Add this line
+      console.log("lastLaunchTime", lastLaunchTime); 
       const currentTime = new Date().getTime();
-      console.log("currentTime", currentTime); // Add this line
+      console.log("currentTime", currentTime); 
       const sevenDaysInMs = 7 * 24 * 60 * 60 * 1000;
 
       if (!lastLaunchTime || currentTime - lastLaunchTime > sevenDaysInMs) {
@@ -44,6 +45,37 @@ class MainMenu extends Component {
 
     onLoginSuccess = () => {
         this.setState({ isLoggedIn: true });
+    }
+
+    onTakePill = () => {
+        const { lastPillTakenTime } = this.state;
+        const currentTime = new Date().getTime();
+        const timeDifference = currentTime - lastPillTakenTime;
+        const timeThreshold = 5 * 60 * 1000; // 5 minutes in milliseconds
+  
+        if (lastPillTakenTime && timeDifference < timeThreshold) {
+          Alert.alert(
+            "Warning",
+            "Are you sure you want to take the pill? You took the last pill less than 5 minutes ago.",
+            [
+              {
+                text: "Cancel",
+                style: "cancel",
+              },
+              {
+                text: "Take Pill",
+                onPress: () => {
+                  this.props.navigation.navigate('Take Pill');
+                  this.setState({ lastPillTakenTime: currentTime });
+                },
+              },
+            ],
+            { cancelable: false }
+          );
+        } else {
+          this.props.navigation.navigate('Take Pill');
+          this.setState({ lastPillTakenTime: currentTime });
+        }
     }
     
     render() {
@@ -73,12 +105,12 @@ class MainMenu extends Component {
 
                 <TouchableOpacity 
                     style={styles.circleButton}
-                    onPress={() => this.props.navigation.navigate('Take Pill')}
+                    onPress={this.onTakePill}
                 >
                     <Text style={styles.circleButtonText}>Take Pill</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('Log Screen')} style={{ position: 'absolute', bottom: 20, right: 20 }}>
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('Log Screen')} style={{ position: 'absolute', bottom: 40, right: 30 }}>
                   <Text style={{ fontSize: 30, color: 'white', backgroundColor: 'blue', padding: 10, borderRadius: 50 }}>+</Text>
                 </TouchableOpacity>
 
@@ -125,7 +157,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         position: 'absolute',
-        bottom: 150,
+        bottom: 260,
     },
     circleButtonText: {
         color: '#fff',
