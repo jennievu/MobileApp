@@ -3,9 +3,11 @@ import {View, Text, TouchableOpacity, StyleSheet, FlatList, Dimensions, Alert} f
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const TakePill = () => {
-  const [markedDates, setMarkedDates] = useState({});
+  const [markedDates, setMarkedDates] = useState({}); // currently unused
   const [selectedHours, setSelectedHours] = useState([]);
   const [availableHours, setAvailableHours] = useState([]);
+  const [takenHours, setTakenHours] = useState([]);
+  const [lastTakenHours, setLastTakenHours] = useState([]);
 
   useEffect(() => {
     // Fetch data from database and create an array of all available hours
@@ -20,13 +22,15 @@ const TakePill = () => {
 
   const renderHour = ({item}) => {
     const isAvailable = availableHours.includes(item);
-    const buttonStyle = isAvailable ? styles.hourButton : styles.disabledHourButton;
-    const textStyle = isAvailable ? styles.hourText : styles.disabledHourText;
+    const isTaken = takenHours.includes(item);
+    const isLastTaken = lastTakenHours.includes(item);
+    const buttonStyle = isTaken ? styles.disabledHourButton : (isAvailable ? styles.hourButton : styles.disabledHourButton);
+    const textStyle = isTaken ? styles.disabledHourText : (isAvailable ? styles.hourText : styles.disabledHourText);
     return (
       <TouchableOpacity
         style={buttonStyle}
         onPress={() => onTakePill(item)}
-        disabled={!isAvailable}
+        disabled={!isAvailable || isTaken}
       >
         <Text style={textStyle}>{item}</Text>
       </TouchableOpacity>
@@ -40,6 +44,21 @@ const TakePill = () => {
       </View>
     );
   };
+  
+  const onUndo = () => {
+    const updatedTakenHours = [...lastTakenHours];
+    const updatedSelectedHours = [...selectedHours];
+    setTakenHours(prevTakenHours => {
+      const filteredTakenHours = prevTakenHours.filter(hour => !lastTakenHours.includes(hour));
+      setLastTakenHours([]);
+      return filteredTakenHours;
+    });
+    setSelectedHours(prevSelectedHours => {
+      const filteredSelectedHours = prevSelectedHours.filter(hour => !lastTakenHours.includes(hour));
+      setLastTakenHours([]);
+      return filteredSelectedHours;
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -51,6 +70,8 @@ const TakePill = () => {
           ListEmptyComponent={renderEmptyList}
         />
     </View>
+
+    <View style={styles.buttonContainer}>
       <TouchableOpacity
         style={[styles.takePillButton, {opacity: selectedHours.length > 0 ? 1 : 0.5}]}
         disabled={selectedHours.length === 0}
@@ -58,11 +79,23 @@ const TakePill = () => {
           // Show popup when pill is taken
           Alert.alert('Pill Taken!');
           // Add logic to update the database or perform any other actions
+          const updatedTakenHours = [...takenHours, ...selectedHours];
+          setLastTakenHours(selectedHours);
+          setTakenHours(updatedTakenHours);
+          setSelectedHours([]);
         }}
       >
         <Icon name="pill" size={30} color="white" />
         <Text style={styles.buttonText}>Take Pill</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.undoButton, {opacity: lastTakenHours.length > 0 ? 1 : 0.5}]}
+        disabled={lastTakenHours.length === 0}
+        onPress={onUndo}
+      >
+        <Text style={styles.buttonText}>Undo</Text>
+      </TouchableOpacity>
+    </View>
     </View>
   );
 };
@@ -121,11 +154,25 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     width: 100,
     height: 100,
-    marginTop: 30,
+    marginTop: 20,
   },
   buttonText: {
     color: 'white',
     fontWeight: 'bold',
+  },
+  undoButton: {
+    backgroundColor: '#9E9E9E',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+    paddingHorizontal: 120,
+    marginTop: 30,
   },
 });
 
